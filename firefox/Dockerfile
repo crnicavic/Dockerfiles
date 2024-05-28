@@ -1,7 +1,10 @@
+# build with:
+# docker build -t <name> . --progress=plain
+# incase something is wrong --no-cache flag can help
 FROM debian
 
 RUN apt-get update && apt-get install -y firefox-esr git -qqy x11-apps \
-		libpci3 libegl1
+		libpci3 libegl1 
 
 RUN groupadd -r firefox 
 RUN useradd -r -m -g firefox -G audio,video firefox
