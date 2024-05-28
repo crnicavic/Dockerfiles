@@ -1,6 +1,3 @@
-# build with:
-# docker build -t <name> . --progress=plain
-# incase something is wrong --no-cache flag can help
 FROM debian
 
 RUN apt-get update && apt-get install -y firefox-esr git -qqy x11-apps \
