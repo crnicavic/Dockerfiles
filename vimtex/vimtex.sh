@@ -1,4 +1,3 @@
-
 #check for number fo arguments
 if [ "$#" -ne 1 ]; then
 	echo "unexpected number of arguments!"
