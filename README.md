@@ -18,3 +18,9 @@ The reason for that is docker assigns the MAC of `02:42:ac:11:00:02` for all
 containers and increments it by 1 for each container. So by setting it to 
 `02:42:ac:11:00:ff` you can have 254 containers running before problems start
 to emerge.
+
+Incase there is no 'view activated computers' thing, go into the matlab 
+Dockerfile, comment out the `ENTRYPOINT` line, build the container, run it,
+login, and it will appear once you go onto the mathworks account page again.
+From there download the license, and copy into the dockerfile folder, and 
+finally build the image.
