@@ -11,6 +11,7 @@ RUN apt update && \
 				   libgdk-pixbuf-2.0-dev \
 				   libatk1.0-0 \
 				   xorg \
+				   net-tools \
 				   apt-file
 #libharfbuzz-dev
 

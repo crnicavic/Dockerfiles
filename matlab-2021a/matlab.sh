@@ -29,4 +29,5 @@ docker run -it \
 		   -v /tmp/.X11-unix:/tmp/.X11-unix \
 		   -v "$DIR:/home/matlab/workdir:rw" \
 		   --rm \
+		   --mac-address 02:42:ac:11:00:ff \
 		   matlab
