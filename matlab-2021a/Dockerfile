@@ -1,5 +1,4 @@
 FROM debian
-
 ARG GID=100
 ARG UID=1000
 ARG USERNAME=matlab
@@ -21,6 +20,7 @@ RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME
 WORKDIR $HOME
 
 COPY license.lic $HOME/
+COPY products.txt $HOME/ 
 
 # Incase of issues this should do stuff
 # cd <your_matlab_location>/sys/os/glnxa64/
@@ -30,9 +30,7 @@ COPY license.lic $HOME/
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \
 	chmod +x mpm && \
 	./mpm install \
-	--release R2021a \
-	--destination $HOME/matlab \
-	--products Simulink 	
+	--inputfile $HOME/products.txt
 
 # 2021a uses a really old freetype so fixing linking errors
 RUN rm $HOME/matlab/bin/glnxa64/libfreetype.so.6 && \
