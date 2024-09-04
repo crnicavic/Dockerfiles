@@ -41,8 +41,7 @@
 ## Set the desired value for destinationFolder and
 ## uncomment the following line.
 
-destinationFolder=/home/matlab/matlab/
-
+destinationFolder=/opt/matlab/
 
 ########################################################################
 ## INSTALL PRODUCTS
