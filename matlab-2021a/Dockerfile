@@ -11,21 +11,13 @@ RUN apt update && \
 				   libatk1.0-0 \
 				   xorg \
 				   net-tools \
-				   apt-file
-#libharfbuzz-dev
-
+				   apt-file 
 
 RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME
 
 WORKDIR $HOME
 
-COPY license.lic $HOME/
 COPY products.txt $HOME/ 
-
-# Incase of issues this should do stuff
-# cd <your_matlab_location>/sys/os/glnxa64/
-# sudo mv libstdc++.so.6 libstdc++.so.6.bak
-# sudo ln -s /usr/lib64/libstdc++.so.6  libstdc++.so.6
 
 RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \
 	chmod +x mpm && \
@@ -33,11 +25,17 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \
 	--inputfile $HOME/products.txt
 
 # 2021a uses a really old freetype so fixing linking errors
-RUN rm $HOME/matlab/bin/glnxa64/libfreetype.so.6 && \
-	rm $HOME/matlab/bin/glnxa64/libfreetype.so.6.16.0
+RUN rm /opt/matlab/bin/glnxa64/libfreetype.so.6 && \
+	rm /opt/matlab/bin/glnxa64/libfreetype.so.6.16.0
 
 RUN mkdir $HOME/workdir
 
 USER matlab 
 
-ENTRYPOINT ["/home/matlab/matlab/bin/matlab", "-c", "/home/matlab/license.lic"]
+WORKDIR $HOME/workdir
+
+RUN rm $HOME/products.txt $HOME/mpm
+
+COPY license.lic /opt/matlab/
+
+ENTRYPOINT ["/opt/matlab/bin/matlab", "-c", "/opt/matlab/license.lic"]
