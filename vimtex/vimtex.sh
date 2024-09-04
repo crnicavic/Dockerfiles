@@ -18,8 +18,6 @@ else
 	exit 1
 fi
 
-echo $DIR
-
 xhost local:docker
 
 docker run -it \
