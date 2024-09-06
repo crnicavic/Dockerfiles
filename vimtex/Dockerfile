@@ -51,9 +51,9 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install configs
-COPY the-vimrc $HOME/.vimrc
-COPY install_plugins.vim $HOME
-COPY Xresources $HOME/.Xresources
+COPY dotfiles/the-vimrc $HOME/.vimrc
+COPY dotfiles/install_plugins.vim $HOME
+COPY dotfiles/Xresources $HOME/.Xresources
 RUN vim -u $HOME/install_plugins.vim
 
 #cleanup
