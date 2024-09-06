@@ -1,0 +1,67 @@
+# arch btw
+FROM archlinux
+
+ARG GID=100
+ARG UID=1000
+ARG USERNAME=vimtex
+ARG HOME="/home/$USERNAME"
+
+#so many fucking dependencies
+RUN pacman -Syyy && \
+	yes | pacman -S git \
+					gvim \
+					xorg-server \
+					zathura \
+					base-devel \
+					tesseract-data-eng \
+					zathura-pdf-mupdf \
+					texlive-basic \
+					texlive-bin \
+					texlive-binextra \
+					texlive-fontsrecommended \
+					texlive-fontsextra \
+					texlive-latex \
+					texlive-latexextra \
+					texlive-latexrecommended \
+					texlive-mathscience \
+					texlive-pictures \
+					texlive-xetex \
+					texlive-langcyrillic \
+					ttf-dejavu-nerd \
+					ttf-hack \
+					xcolor \
+					xorg-font-util \
+					xterm \
+					nodejs \
+					npm 
+
+#RUN groupadd -r users
+RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME && \
+	echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER $USERNAME
+
+#download Times New Roman
+RUN mkdir $HOME/tnr 
+WORKDIR $HOME/tnr
+RUN git clone https://aur.archlinux.org/ttf-times-new-roman.git $HOME/tnr && \
+	yes | makepkg -i
+
+RUN mkdir $HOME/workdir
+WORKDIR $HOME/workdir
+
+# install vim-plug
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN echo "\$pdflatex=\"xelatex %O %S\";" > $HOME/.latexmkrc
+COPY the-vimrc $HOME/.vimrc
+COPY install_plugins.vim $HOME
+COPY Xresources $HOME/.Xresources
+RUN vim -u $HOME/install_plugins.vim
+
+#cleanup
+RUN rm $HOME/install_plugins.vim && \
+	rm $HOME/tnr -r
+
+ENTRYPOINT ["dbus-run-session", "uxterm", "-e", "vim", "."]
+CMD []
