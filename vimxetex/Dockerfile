@@ -9,7 +9,7 @@ ARG HOME="/home/$USERNAME"
 #so many fucking dependencies
 RUN pacman -Syyy && \
 	yes | pacman -S git \
-					gvim \
+					vim \
 					xorg-server \
 					zathura \
 					base-devel \
@@ -53,7 +53,9 @@ WORKDIR $HOME/workdir
 # install vim-plug
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# switch compiler to XeTeX
 RUN echo "\$pdflatex=\"xelatex %O %S\";" > $HOME/.latexmkrc
+# install configs
 COPY the-vimrc $HOME/.vimrc
 COPY install_plugins.vim $HOME
 COPY Xresources $HOME/.Xresources
@@ -62,6 +64,11 @@ RUN vim -u $HOME/install_plugins.vim
 #cleanup
 RUN rm $HOME/install_plugins.vim && \
 	rm $HOME/tnr -r
+
+#remove sudo privileges
+USER root
+RUN head -n -2 /etc/sudoers > /etc/sudoers
+USER $USERNAME
 
 ENTRYPOINT ["dbus-run-session", "uxterm", "-e", "vim", "."]
 CMD []
