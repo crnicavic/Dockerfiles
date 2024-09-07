@@ -19,6 +19,6 @@ ADD ./icons $HOME/icons
 
 WORKDIR $HOME
 
-USER keepassxc
+USER $USERNAME
 
 ENTRYPOINT ["keepassxc", "passdir/Passwords.kdbx"]
