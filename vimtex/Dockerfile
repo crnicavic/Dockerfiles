@@ -31,7 +31,6 @@ RUN pacman -Syyy && \
 					nodejs \
 					npm 
 
-#RUN groupadd -r users
 RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME && \
 	echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
