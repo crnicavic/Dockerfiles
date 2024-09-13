@@ -64,4 +64,6 @@ set mouse=a
 
 set clipboard=unnamedplus
 
+set colorcolumn=80
+
 let g:vimtex_view_method = 'zathura'
