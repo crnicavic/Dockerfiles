@@ -13,6 +13,8 @@ RUN apt update && \
 
 RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME
 
+COPY Passwords.kdb[x] $HOME/passdir
+
 RUN mkdir passdir
 
 ADD ./icons $HOME/icons
