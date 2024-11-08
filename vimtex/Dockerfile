@@ -26,6 +26,8 @@ RUN pacman -Syyy && \
 					texlive-pictures \
 					ttf-dejavu-nerd \
 					ttf-hack \
+					inkscape \
+					ttf-dejavu \
 					xorg-font-util \
 					xcolor \
 					xterm \
