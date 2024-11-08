@@ -29,6 +29,8 @@ RUN pacman -Syyy && \
 					texlive-langcyrillic \
 					ttf-dejavu-nerd \
 					ttf-hack \
+					inkscape \
+					ttf-dejavu \
 					xcolor \
 					xorg-font-util \
 					xterm \
