@@ -45,6 +45,10 @@ WORKDIR $HOME/tnr
 RUN git clone https://aur.archlinux.org/ttf-times-new-roman.git $HOME/tnr && \
 	yes | makepkg -i
 
+# install st
+RUN git clone https://github.com/crnicavic/dwm-desktop $HOME/dwm-desktop && \
+	sudo make -C $HOME/dwm-desktop/st/ install clean
+
 RUN mkdir $HOME/workdir
 WORKDIR $HOME/workdir
 
@@ -67,5 +71,5 @@ USER root
 RUN head -n -2 /etc/sudoers > /etc/sudoers
 USER $USERNAME
 
-ENTRYPOINT ["dbus-run-session", "uxterm", "-e", "vim", "."]
+ENTRYPOINT ["dbus-run-session", "st", "-e", "vim", "."]
 CMD []

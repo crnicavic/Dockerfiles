@@ -49,14 +49,19 @@ WORKDIR $HOME/tnr
 RUN git clone https://aur.archlinux.org/ttf-times-new-roman.git $HOME/tnr && \
 	yes | makepkg -i
 
+RUN git clone https://github.com/crnicavic/dwm-desktop $HOME/dwm-desktop && \
+	sudo make -C $HOME/dwm-desktop/st/ install clean
+
 RUN mkdir $HOME/workdir
 WORKDIR $HOME/workdir
 
 # install vim-plug
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 		    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # switch compiler to XeTeX
 RUN echo "\$pdflatex=\"xelatex %O %S\";" > $HOME/.latexmkrc
+
 # install configs
 COPY dotfiles/the-vimrc $HOME/.vimrc
 COPY dotfiles/install_plugins.vim $HOME
