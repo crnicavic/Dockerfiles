@@ -11,16 +11,17 @@ RUN apt update && \
 				   keepassxc \
 				   apt-file
 
+RUN groupmod -g $GID users
 RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME
-
-COPY Passwords.kdb[x] $HOME/passdir
-
-RUN mkdir passdir
-
-ADD ./icons $HOME/icons
 
 WORKDIR $HOME
 
 USER $USERNAME
+
+RUN mkdir $HOME/passdir
+
+COPY Passwords.kdb[x] $HOME/passdir
+
+ADD ./icons $HOME/icons
 
 ENTRYPOINT ["keepassxc", "passdir/Passwords.kdbx"]
