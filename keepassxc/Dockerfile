@@ -22,6 +22,4 @@ RUN mkdir $HOME/passdir
 
 COPY Passwords.kdb[x] $HOME/passdir
 
-ADD ./icons $HOME/icons
-
 ENTRYPOINT ["keepassxc", "passdir/Passwords.kdbx"]
