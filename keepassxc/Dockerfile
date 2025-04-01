@@ -20,6 +20,6 @@ USER $USERNAME
 
 RUN mkdir $HOME/passdir
 
-COPY Passwords.kdb[x] $HOME/passdir
+COPY Passwords.kdb[x] $HOME/passdir/
 
 ENTRYPOINT ["keepassxc", "passdir/Passwords.kdbx"]
