@@ -9,17 +9,29 @@ RUN apt update && \
 				   xorg \
 				   net-tools \
 				   keepassxc \
-				   apt-file
+				   apt-file \
+				   sudo
 
 RUN groupmod -g $GID users
-RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME
+RUN useradd -r -m -u $UID -g users -G audio,video $USERNAME && \
+	echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR $HOME
+
 
 USER $USERNAME
 
 RUN mkdir $HOME/passdir
 
 COPY Passwords.kdb[x] $HOME/passdir/
+
+RUN sudo chmod 755 $HOME/passdir/Passwords.kdb[x]
+
+#remove sudo privileges
+USER root
+
+RUN head -n -2 /etc/sudoers > /etc/sudoers
+
+USER $USERNAME
 
 ENTRYPOINT ["keepassxc", "passdir/Passwords.kdbx"]
