@@ -1,0 +1,6 @@
+Server = http://mirror1.sox.rs/archlinux/$repo/os/$arch
+Server = https://mirror1.sox.rs/archlinux/$repo/os/$arch
+Server = http://mirror.digitalnova.at/archlinux/$repo/os/$arch
+Server = http://mirror.metalgamer.eu/archlinux/$repo/os/$arch
+Server = http://archmirror.hbit.sztaki.hu/archlinux/$repo/os/$arch
+
